@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="EasyMoving — надійні вантажоперевезення по Києву та Київській області. Квартирні переїзди, офісні переїзди, перевезення вантажів.">
+  <title>EasyMoving — Вантажоперевезення по Україні</title>
+  <link rel="alternate" hreflang="uk" href="index.html">
+  <link rel="alternate" hreflang="ru" href="ru.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bebas Neue"', 'cursive'],
+            body: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            accent: '#F5601E',
+            'acc-lt': '#FF834A',
+            dark: '#141C2A',
+            'd2': '#1C2638',
+            'd3': '#263248',
+            muted: '#8B949E',
+            'txt': '#E6EDF3',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #141C2A;
+      color: #E6EDF3;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #141C2A
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #F5601E;
+      border-radius: 3px
+    }
+
+    /* navbar */
+    #navbar {
+      transition: background .3s, box-shadow .3s
+    }
+
+    #navbar.scrolled {
+      background: rgba(20, 28, 42, .94);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .06)
+    }
+
+    /* nav link underline */
+    .nav-link {
+      position: relative
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #F5601E;
+      transition: width .3s
+    }
+
+    .nav-link:hover::after {
+      width: 100%
+    }
+
+    /* hero */
+    .hero-bg {
+      background: linear-gradient(140deg, #141C2A 0%, #13172a 55%, #141C2A 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -180px;
+      right: -180px;
+      width: 560px;
+      height: 560px;
+      background: radial-gradient(circle, rgba(245, 96, 30, .14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(245, 96, 30, .06) 0%, transparent 70%);
+    }
+
+    .hero-stripe {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 42%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(245, 96, 30, .07) 0%, rgba(245, 96, 30, .02) 100%);
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .hero-stripe-line {
+      position: absolute;
+      top: 0;
+      right: 42%;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, rgba(245, 96, 30, .4), transparent);
+    }
+
+    /* adv badge */
+    .adv-badge {
+      background: rgba(245, 96, 30, .09);
+      border: 1px solid rgba(245, 96, 30, .2)
+    }
+
+    /* buttons */
+    .btn-p {
+      background: #F5601E;
+      color: #fff;
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+
+    .btn-p:hover {
+      background: #FF834A;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 28px rgba(245, 96, 30, .35)
+    }
+
+    .btn-o {
+      border: 2px solid rgba(245, 96, 30, .55);
+      color: #F5601E;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+
+    .btn-o:hover {
+      border-color: #F5601E;
+      background: rgba(245, 96, 30, .08);
+      transform: translateY(-1px)
+    }
+
+    /* service card */
+    .svc-card {
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s, border-color .3s
+    }
+
+    .svc-card:hover {
+      transform: translateY(-5px);
+      border-color: #F5601E !important
+    }
+
+    .svc-icon {
+      transition: transform .3s
+    }
+
+    .svc-card:hover .svc-icon {
+      transform: scale(1.12)
+    }
+
+    /* fleet card */
+    .fl-card {
+      transition: transform .3s, border-color .3s
+    }
+
+    .fl-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(245, 96, 30, .5) !important
+    }
+
+    /* form inputs */
+    .fi {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      color: #E6EDF3;
+      transition: border-color .2s, background .2s;
+    }
+
+    .fi:focus {
+      outline: none;
+      border-color: #F5601E;
+      background: rgba(245, 96, 30, .04)
+    }
+
+    .fi::placeholder {
+      color: #8B949E
+    }
+
+    select.fi option {
+      background: #263248
+    }
+
+    /* callback bg */
+    .cb-bg {
+      background: linear-gradient(140deg, #1b0e08 0%, #2e1609 50%, #1b0e08 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cb-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(245, 96, 30, .18) 0%, transparent 68%);
+    }
+
+    /* divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(245, 96, 30, .25), transparent)
+    }
+
+    /* mobile menu */
+    #mob-menu {
+      transition: max-height .3s ease, opacity .3s;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden
+    }
+
+    #mob-menu.open {
+      max-height: 420px;
+      opacity: 1
+    }
+
+    /* lang button */
+    .lng-btn {
+      transition: all .2s;
+      border: 1.5px solid transparent
+    }
+
+    .lng-btn.active {
+      background: #F5601E;
+      color: #fff;
+      border-color: #F5601E
+    }
+
+    .lng-btn:not(.active) {
+      color: #8B949E;
+      border-color: #263248
+    }
+
+    .lng-btn:not(.active):hover {
+      border-color: #F5601E;
+      color: #F5601E
+    }
+
+    /* review track */
+    #rev-track {
+      transition: transform .4s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    /* fade-up */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .fu {
+      opacity: 0;
+      animation: fadeUp .65s ease forwards
+    }
+
+    .d1 {
+      animation-delay: .1s
+    }
+
+    .d2 {
+      animation-delay: .22s
+    }
+
+    .d3 {
+      animation-delay: .36s
+    }
+
+    .d4 {
+      animation-delay: .5s
+    }
+
+    /* success state */
+    .btn-success {
+      background: #16a34a !important;
+      box-shadow: none !important
+    }
+
+    /* stats bar */
+    .stat-item {
+      position: relative
+    }
+
+    .stat-item+.stat-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 40px;
+      width: 1px;
+      background: rgba(245, 96, 30, .2);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 flex-shrink-0">
+          <div class="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shadow-lg shadow-accent/30">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+              <rect x="1" y="3" width="15" height="13" rx="1.5" />
+              <path d="M16 8h4l3 3v5h-7V8z" />
+              <circle cx="5.5" cy="19" r="2" fill="white" />
+              <circle cx="19.5" cy="19" r="2" fill="white" />
+            </svg>
+          </div>
+          <span class="font-display text-[26px] text-txt tracking-widest leading-none">EASY<span
+              class="text-accent">MOVING</span></span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-7">
+          <a href="#services"
+            class="nav-link text-muted hover:text-txt transition-colors text-sm font-medium uppercase tracking-wider"
+            data-i18n="nav.services">Послуги</a>
+          <a href="#fleet"
+            class="nav-link text-muted hover:text-txt transition-colors text-sm font-medium uppercase tracking-wider"
+            data-i18n="nav.fleet">Транспорт</a>
+          <a href="#reviews"
+            class="nav-link text-muted hover:text-txt transition-colors text-sm font-medium uppercase tracking-wider"
+            data-i18n="nav.reviews">Відгуки</a>
+          <a href="#contacts"
+            class="nav-link text-muted hover:text-txt transition-colors text-sm font-medium uppercase tracking-wider"
+            data-i18n="nav.contacts">Контакти</a>
+
+          <!-- Lang switcher -->
+          <div class="flex items-center gap-1 bg-d3 rounded-full p-1">
+            <span class="lng-btn active px-3 py-1 rounded-full text-xs font-bold cursor-default">UA</span>
+            <a href="ru.html" class="lng-btn px-3 py-1 rounded-full text-xs font-bold">RU</a>
+          </div>
+
+          <a href="#order" class="btn-p px-5 py-2 rounded-full text-sm font-semibold" data-i18n="nav.cta">Замовити</a>
+        </div>
+
+        <!-- Mobile burger -->
+        <button id="burger" class="md:hidden p-2 text-muted hover:text-accent transition-colors" onclick="toggleMob()">
+          <svg id="burger-ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mob-menu">
+        <div class="pt-5 pb-3 flex flex-col gap-4 border-t border-white/10 mt-4">
+          <a href="#services" class="text-muted hover:text-accent transition-colors" data-i18n="nav.services"
+            onclick="toggleMob()">Послуги</a>
+          <a href="#fleet" class="text-muted hover:text-accent transition-colors" data-i18n="nav.fleet"
+            onclick="toggleMob()">Транспорт</a>
+          <a href="#reviews" class="text-muted hover:text-accent transition-colors" data-i18n="nav.reviews"
+            onclick="toggleMob()">Відгуки</a>
+          <a href="#contacts" class="text-muted hover:text-accent transition-colors" data-i18n="nav.contacts"
+            onclick="toggleMob()">Контакти</a>
+          <div class="flex items-center gap-2 pt-1">
+            <span class="lng-btn active px-4 py-1.5 rounded-full text-sm font-bold cursor-default">UA</span>
+            <a href="ru.html" class="lng-btn px-4 py-1.5 rounded-full text-sm font-bold">RU</a>
+          </div>
+          <a href="#order" class="btn-p inline-block px-6 py-2.5 rounded-full text-sm font-semibold text-center"
+            data-i18n="nav.cta" onclick="toggleMob()">Замовити</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+  <section id="home" class="hero-bg min-h-screen flex items-center pt-24 pb-64 md:pb-24">
+    <div class="hero-stripe"></div>
+    <div class="hero-stripe-line"></div>
+    <div class="hero-glow"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex items-center gap-8">
+      <div class="flex-1 min-w-0">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 adv-badge rounded-full px-4 py-1.5 mb-7 fu d1">
+          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+          <span class="text-sm text-accent font-medium" data-i18n="hero.badge">Надійні вантажоперевезення по
+            Україні</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="font-display leading-[0.95] text-txt mb-6 fu d2" style="font-size:clamp(4rem,10vw,8rem)">
+          <span data-i18n="hero.t1">ШВИДКО.</span><br>
+          <span class="text-accent" data-i18n="hero.t2">НАДІЙНО.</span><br>
+          <span data-i18n="hero.t3">ВИГІДНО.</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="text-lg text-muted max-w-xl leading-relaxed mb-8 fu d3" data-i18n="hero.sub">
+          Перевезення квартир, офісів та вантажів по Києву та всій Україні. Досвідчені вантажники, сучасний автопарк,
+          страхування вантажу.
+        </p>
+
+        <!-- Advantages -->
+        <div class="flex flex-wrap gap-2 mb-8 fu d3">
+          <span class="adv-badge rounded-full px-3 py-1 text-sm text-txt">✓ Без прихованих доплат</span>
+          <span class="adv-badge rounded-full px-3 py-1 text-sm text-txt">✓ Страхування вантажу</span>
+          <span class="adv-badge rounded-full px-3 py-1 text-sm text-txt">✓ Досвід 10+ років</span>
+          <span class="adv-badge rounded-full px-3 py-1 text-sm text-txt">✓ Цілодобово 24/7</span>
+        </div>
+
+        <!-- Phones -->
+        <div class="flex flex-wrap gap-6 mb-8 fu d4">
+          <div>
+            <p class="text-xs text-muted uppercase tracking-wider mb-1">Зателефонуйте нам</p>
+            <a href="tel:+380501234567" class="text-2xl font-bold text-txt hover:text-accent transition-colors">+38
+              (050) 123-45-67</a>
+          </div>
+          <div>
+            <p class="text-xs text-muted uppercase tracking-wider mb-1">&nbsp;</p>
+            <a href="tel:+380631234567" class="text-2xl font-bold text-txt hover:text-accent transition-colors">+38
+              (063) 123-45-67</a>
+          </div>
+        </div>
+
+        <!-- CTA row — stacks on mobile -->
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3 fu d4">
+          <a href="#order" class="btn-p px-8 py-3.5 rounded-full font-semibold text-center">Замовити розрахунок</a>
+          <a href="https://t.me/easymoving" target="_blank"
+            class="btn-o px-5 py-3.5 rounded-full font-semibold flex items-center justify-center gap-2 text-sm">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8-1.68 7.94c-.13.56-.46.7-.93.44l-2.57-1.9-1.24 1.19c-.14.13-.26.25-.52.25l.18-2.62 4.73-4.27c.2-.18-.05-.28-.32-.1l-5.85 3.69-2.52-.79c-.55-.17-.56-.55.12-.81l9.84-3.79c.45-.17.85.11.76.77z" />
+            </svg>
+            Telegram
+          </a>
+          <a href="viber://chat?number=+380501234567"
+            class="btn-o px-5 py-3.5 rounded-full font-semibold flex items-center justify-center gap-2 text-sm">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Viber
+          </a>
+        </div>
+      </div>
+
+      <!-- Truck illustration — desktop only -->
+      <div class="hidden lg:flex flex-shrink-0 w-[420px] items-center justify-center">
+        <img src="pngegg.png" alt="Truck"
+          class="w-full h-auto drop-shadow-2xl filter drop-shadow-[0_24px_64px_rgba(245,96,30,0.22)]">
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="absolute bottom-0 left-0 right-0 z-10 bg-d2/80 backdrop-blur-sm border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/5">
+          <div class="stat-item text-center py-5 px-4">
+            <p class="font-display text-3xl text-accent">10+</p>
+            <p class="text-xs text-muted mt-0.5" data-i18n="hero.st1">Років досвіду</p>
+          </div>
+          <div class="stat-item text-center py-5 px-4">
+            <p class="font-display text-3xl text-accent">2 400+</p>
+            <p class="text-xs text-muted mt-0.5" data-i18n="hero.st2">Виконаних переїздів</p>
+          </div>
+          <div class="stat-item text-center py-5 px-4">
+            <p class="font-display text-3xl text-accent">12</p>
+            <p class="text-xs text-muted mt-0.5" data-i18n="hero.st3">Одиниць транспорту</p>
+          </div>
+          <div class="stat-item text-center py-5 px-4">
+            <p class="font-display text-3xl text-accent">24/7</p>
+            <p class="text-xs text-muted mt-0.5" data-i18n="hero.st4">Цілодобово</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ══════════════════════════════════════════
+     SERVICES
+══════════════════════════════════════════ -->
+  <section id="services" class="py-24 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-14">
+        <p class="text-accent text-xs font-bold uppercase tracking-[.2em] mb-3" data-i18n="sec.services">Що ми робимо
+        </p>
+        <h2 class="font-display text-txt leading-none" style="font-size:clamp(2.8rem,6vw,5rem)"
+          data-i18n="sec.servicesTitle">НАШІ ПОСЛУГИ</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- s1 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s1.n">Квартирний переїзд</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s1.d">Акуратне пакування та перевезення всіх
+            речей. Розбирання та складання меблів.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s1.p">від 1 200 грн</p>
+        </div>
+
+        <!-- s2 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s2.n">Офісний переїзд</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s2.d">Переїзд без простою бізнесу. Можливо у
+            вихідні та нічний час.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s2.p">від 2 500 грн</p>
+        </div>
+
+        <!-- s3 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <path
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s3.n">Дачний переїзд</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s3.d">Перевезення дачних речей, садового
+            інвентарю та техніки за містом.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s3.p">від 1 500 грн</p>
+        </div>
+
+        <!-- s4 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
+              <line x1="12" y1="12" x2="12" y2="16" />
+              <line x1="10" y1="14" x2="14" y2="14" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s4.n">Перевезення меблів</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s4.d">Демонтаж, упаковка, безпечне
+            транспортування та збирання меблів.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s4.p">від 800 грн</p>
+        </div>
+
+        <!-- s5 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <path d="M2 20h20M4 20V10M20 20V10M8 20v-6h8v6M12 4l8 6H4l8-6z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s5.n">Будматеріали</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s5.d">Доставка піску, щебеню, цегли та інших
+            будівельних матеріалів.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s5.p">від 600 грн</p>
+        </div>
+
+        <!-- s6 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s6.n">Вивіз сміття</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s6.d">Вивіз будівельного та побутового сміття,
+            старих меблів та техніки.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s6.p">від 500 грн</p>
+        </div>
+
+        <!-- s7 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s7.n">Вантажники</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s7.d">Досвідчені вантажники для підйому та
+            спуску важких речей на будь-який поверх.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s7.p">від 350 грн/год</p>
+        </div>
+
+        <!-- s8 -->
+        <div class="svc-card bg-d2 border border-white/5 rounded-2xl p-6 cursor-pointer">
+          <div class="svc-icon w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="1.5">
+              <rect x="1" y="3" width="22" height="5" rx="1" />
+              <path d="M1 8h22v13H1zM8 21V8M16 21V8" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-txt text-base mb-2" data-i18n="s8.n">Складський переїзд</h3>
+          <p class="text-muted text-sm leading-relaxed mb-4" data-i18n="s8.d">Організація переїзду складу з мінімальним
+            простоєм виробництва.</p>
+          <p class="text-accent font-semibold text-sm" data-i18n="s8.p">за домовленістю</p>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-12">
+        <a href="#order" class="btn-p px-10 py-4 rounded-full font-semibold" data-i18n="sec.svcCTA">Замовити послугу</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ══════════════════════════════════════════
+     FLEET
+══════════════════════════════════════════ -->
+  <section id="fleet" class="py-24 bg-d2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-14">
+        <p class="text-accent text-xs font-bold uppercase tracking-[.2em] mb-3" data-i18n="sec.fleet">Наш автопарк</p>
+        <h2 class="font-display text-txt leading-none" style="font-size:clamp(2.8rem,6vw,5rem)"
+          data-i18n="sec.fleetTitle">ТРАНСПОРТ</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+
+        <!-- truck illustration helper -->
+
+        <!-- v1: Gazelle -->
+        <div class="fl-card bg-dark border border-white/5 rounded-2xl overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-d3 to-dark flex items-center justify-center">
+            <img src="gazelle.png" alt="Газель" class="w-40 h-32 object-contain">
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-2xl text-txt mb-0.5" data-i18n="v1.n">Газель</h3>
+            <p class="text-muted text-xs mb-4" data-i18n="v1.m">Газель Некст / ГАЗ 3302</p>
+            <div class="space-y-2 text-sm mb-5">
+              <div class="flex justify-between"><span class="text-muted"
+                  data-i18n="fl.cap">Вантажопідйомність</span><span class="text-txt font-medium" data-i18n="v1.c">до 1.5
+                  т</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.vol">Об'єм кузова</span><span
+                  class="text-txt font-medium">10 м³</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.dim">Розміри кузова</span><span
+                  class="text-txt font-medium">3×1.8×1.8 м</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.min">Мін. замовлення</span><span
+                  class="text-txt font-medium" data-i18n="v1.mn">2 год</span></div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-xs text-muted mb-1" data-i18n="fl.hour">Погодинно</p>
+              <p class="text-accent font-bold text-xl" data-i18n="v1.p">350 грн/год</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- v2: Sprinter -->
+        <div class="fl-card bg-dark border border-white/5 rounded-2xl overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-d3 to-dark flex items-center justify-center">
+            <img src="sprinter.png" alt="Mercedes Sprinter" class="w-40 h-32 object-contain">
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-2xl text-txt mb-0.5" data-i18n="v2.n">Mercedes Sprinter</h3>
+            <p class="text-muted text-xs mb-4" data-i18n="v2.m">Mercedes-Benz Sprinter 316</p>
+            <div class="space-y-2 text-sm mb-5">
+              <div class="flex justify-between"><span class="text-muted"
+                  data-i18n="fl.cap">Вантажопідйомність</span><span class="text-txt font-medium" data-i18n="v2.c">до 2
+                  т</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.vol">Об'єм кузова</span><span
+                  class="text-txt font-medium">17 м³</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.dim">Розміри кузова</span><span
+                  class="text-txt font-medium">4.3×2×2 м</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.min">Мін. замовлення</span><span
+                  class="text-txt font-medium" data-i18n="v2.mn">2 год</span></div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-xs text-muted mb-1" data-i18n="fl.hour">Погодинно</p>
+              <p class="text-accent font-bold text-xl" data-i18n="v2.p">450 грн/год</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- v3: MAN 5t -->
+        <div class="fl-card bg-dark border border-white/5 rounded-2xl overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-d3 to-dark flex items-center justify-center">
+            <img src="man5t.png" alt="MAN 5 тонн" class="w-40 h-32 object-contain">
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-2xl text-txt mb-0.5" data-i18n="v3.n">MAN 5 тонн</h3>
+            <p class="text-muted text-xs mb-4" data-i18n="v3.m">MAN TGL / Iveco Daily</p>
+            <div class="space-y-2 text-sm mb-5">
+              <div class="flex justify-between"><span class="text-muted"
+                  data-i18n="fl.cap">Вантажопідйомність</span><span class="text-txt font-medium" data-i18n="v3.c">до 5
+                  т</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.vol">Об'єм кузова</span><span
+                  class="text-txt font-medium">36 м³</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.dim">Розміри кузова</span><span
+                  class="text-txt font-medium">6×2.4×2.4 м</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.min">Мін. замовлення</span><span
+                  class="text-txt font-medium" data-i18n="v3.mn">3 год</span></div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-xs text-muted mb-1" data-i18n="fl.hour">Погодинно</p>
+              <p class="text-accent font-bold text-xl" data-i18n="v3.p">600 грн/год</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- v4: Fura -->
+        <div class="fl-card bg-dark border border-accent/20 rounded-2xl overflow-hidden relative">
+          <div
+            class="absolute top-3 right-3 bg-accent text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider"
+            data-i18n="fl.pop">Популярний</div>
+          <div class="h-40 bg-gradient-to-br from-d3 to-dark flex items-center justify-center">
+            <img src="fura.png" alt="Фура 20 тонн" class="w-40 h-32 object-contain">
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-2xl text-txt mb-0.5" data-i18n="v4.n">Фура 20 тонн</h3>
+            <p class="text-muted text-xs mb-4" data-i18n="v4.m">Volvo FH / MAN TGX</p>
+            <div class="space-y-2 text-sm mb-5">
+              <div class="flex justify-between"><span class="text-muted"
+                  data-i18n="fl.cap">Вантажопідйомність</span><span class="text-txt font-medium" data-i18n="v4.c">до 20
+                  т</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.vol">Об'єм кузова</span><span
+                  class="text-txt font-medium">82 м³</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.dim">Розміри кузова</span><span
+                  class="text-txt font-medium">13.6×2.4×2.7 м</span></div>
+              <div class="flex justify-between"><span class="text-muted" data-i18n="fl.min">Мін. замовлення</span><span
+                  class="text-txt font-medium" data-i18n="v4.mn">1 рейс</span></div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-xs text-muted mb-1" data-i18n="fl.trip">За рейс</p>
+              <p class="text-accent font-bold text-xl" data-i18n="v4.p">за домовленістю</p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- v5: Manipulator -->
+        <div class="fl-card bg-dark border border-white/5 rounded-2xl overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-d3 to-dark flex items-center justify-center">
+            <img src="manipulator.png" alt="Манипулятор" class="w-40 h-32 object-contain">
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-2xl text-txt mb-0.5">Манипулятор</h3>
+            <p class="text-muted text-xs mb-4">Кран-борт / Mitsubishi Fuso</p>
+            <div class="space-y-2 text-sm mb-5">
+              <div class="flex justify-between"><span class="text-muted">Вантажопідйомність</span><span
+                  class="text-txt font-medium">до 5 т</span></div>
+              <div class="flex justify-between"><span class="text-muted">Длина стрелы</span><span
+                  class="text-txt font-medium">5 м</span></div>
+              <div class="flex justify-between"><span class="text-muted">Размеры кузова</span><span
+                  class="text-txt font-medium">6×2.4×2.4 м</span></div>
+              <div class="flex justify-between"><span class="text-muted">Мін. замовлення</span><span
+                  class="text-txt font-medium">3 год</span></div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-xs text-muted mb-1">Погодинно</p>
+              <p class="text-accent font-bold text-xl">700 грн/год</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- v6: Minivan -->
+        <div class="fl-card bg-dark border border-white/5 rounded-2xl overflow-hidden">
+          <div class="h-40 bg-gradient-to-br from-d3 to-dark flex items-center justify-center">
+            <img src="minivan.png" alt="Мінівен" class="w-40 h-32 object-contain">
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-2xl text-txt mb-0.5">Мінівен</h3>
+            <p class="text-muted text-xs mb-4">Peugeot Partner / Renault Kangoo</p>
+            <div class="space-y-2 text-sm mb-5">
+              <div class="flex justify-between"><span class="text-muted">Вантажопідйомність</span><span
+                  class="text-txt font-medium">до 0.8 т</span></div>
+              <div class="flex justify-between"><span class="text-muted">Об'єм кузова</span><span
+                  class="text-txt font-medium">4 м³</span></div>
+              <div class="flex justify-between"><span class="text-muted">Размеры кузова</span><span
+                  class="text-txt font-medium">1.8×1.2×1.2 м</span></div>
+              <div class="flex justify-between"><span class="text-muted">Мін. замовлення</span><span
+                  class="text-txt font-medium">1 год</span></div>
+            </div>
+            <div class="border-t border-white/5 pt-4">
+              <p class="text-xs text-muted mb-1">Погодинно</p>
+              <p class="text-accent font-bold text-xl">250 грн/год</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ══════════════════════════════════════════
+     CALLBACK
+══════════════════════════════════════════ -->
+  <section id="callback" class="cb-bg py-20 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="font-display text-txt leading-none mb-3" style="font-size:clamp(2.6rem,5vw,4rem)"
+          data-i18n="cb.title">ЗАМОВИТИ ДЗВІНОК</h2>
+        <p class="text-muted mb-10" data-i18n="cb.sub">Залиште свій номер і ми передзвонимо вам протягом 5 хвилин</p>
+        <form id="cbForm" onsubmit="submitCB(event)" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+          <input type="text" class="fi flex-1 px-5 py-3.5 rounded-full text-sm" data-i18n-ph="cb.namePh"
+            placeholder="Ваше ім'я">
+          <input type="tel" class="fi flex-1 px-5 py-3.5 rounded-full text-sm" data-i18n-ph="cb.phonePh"
+            placeholder="+38 (___) ___-__-__" required>
+          <button type="submit" id="cbBtn"
+            class="btn-p px-7 py-3.5 rounded-full font-semibold text-sm whitespace-nowrap" data-i18n="cb.btn">Замовити
+            дзвінок</button>
+        </form>
+        <p class="text-xs text-muted mt-4" data-i18n="cb.prv">Натискаючи кнопку, ви погоджуєтеся з обробкою персональних
+          даних</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ══════════════════════════════════════════
+     REVIEWS
+══════════════════════════════════════════ -->
+  <section id="reviews" class="py-24 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
+        <div>
+          <p class="text-accent text-xs font-bold uppercase tracking-[.2em] mb-3" data-i18n="sec.rev">Що кажуть клієнти
+          </p>
+          <h2 class="font-display text-txt leading-none" style="font-size:clamp(2.8rem,6vw,5rem)"
+            data-i18n="sec.revTitle">ВІДГУКИ</h2>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="prevRev()"
+            class="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-colors">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <button onclick="nextRev()"
+            class="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-colors">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="overflow-hidden">
+        <div id="rev-track" class="flex gap-5">
+
+          <div class="min-w-[320px] bg-d2 border border-white/5 rounded-2xl p-6 flex flex-col">
+            <div class="flex gap-0.5 mb-4" style="color:#F5601E;font-size:1.1rem">★★★★★</div>
+            <p class="text-muted text-sm leading-relaxed flex-1 mb-5" data-i18n="r1.t">"Переїхали з квартири на Оболоні.
+              Хлопці приїхали вчасно, акуратно все запакували і перевезли без жодного пошкодження."</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm"
+                data-i18n="r1.i">О</div>
+              <div>
+                <p class="text-txt font-medium text-sm" data-i18n="r1.n">Олексій Коваленко</p>
+                <p class="text-muted text-xs" data-i18n="r1.tp">Квартирний переїзд</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-[320px] bg-d2 border border-white/5 rounded-2xl p-6 flex flex-col">
+            <div class="flex gap-0.5 mb-4" style="color:#F5601E;font-size:1.1rem">★★★★★</div>
+            <p class="text-muted text-sm leading-relaxed flex-1 mb-5" data-i18n="r2.t">"Офісний переїзд провели у
+              вихідні, щоб не заважати роботі. Уся техніка і меблі доїхали в цілості. Дуже задоволені!"</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm"
+                data-i18n="r2.i">М</div>
+              <div>
+                <p class="text-txt font-medium text-sm" data-i18n="r2.n">Марина Василенко</p>
+                <p class="text-muted text-xs" data-i18n="r2.tp">Офісний переїзд</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-[320px] bg-d2 border border-white/5 rounded-2xl p-6 flex flex-col">
+            <div class="flex gap-0.5 mb-4" style="color:#F5601E;font-size:1.1rem">★★★★★</div>
+            <p class="text-muted text-sm leading-relaxed flex-1 mb-5" data-i18n="r3.t">"Замовляв перевезення піаніно —
+              задача не з легких. Хлопці впорались на відмінно, навіть сходи не завадили. Рекомендую!"</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm"
+                data-i18n="r3.i">С</div>
+              <div>
+                <p class="text-txt font-medium text-sm" data-i18n="r3.n">Сергій Петренко</p>
+                <p class="text-muted text-xs" data-i18n="r3.tp">Перевезення меблів</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-[320px] bg-d2 border border-white/5 rounded-2xl p-6 flex flex-col">
+            <div class="flex gap-0.5 mb-4" style="color:#F5601E;font-size:1.1rem">★★★★★</div>
+            <p class="text-muted text-sm leading-relaxed flex-1 mb-5" data-i18n="r4.t">"Вивезли будівельне сміття після
+              ремонту швидко і недорого. Без прихованих доплат, як і обіцяли. Дзвоніть!"</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm"
+                data-i18n="r4.i">Н</div>
+              <div>
+                <p class="text-txt font-medium text-sm" data-i18n="r4.n">Наталія Шевченко</p>
+                <p class="text-muted text-xs" data-i18n="r4.tp">Вивіз сміття</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="min-w-[320px] bg-d2 border border-white/5 rounded-2xl p-6 flex flex-col">
+            <div class="flex gap-0.5 mb-4" style="color:#F5601E;font-size:1.1rem">★★★★★</div>
+            <p class="text-muted text-sm leading-relaxed flex-1 mb-5" data-i18n="r5.t">"Перевозили дачні речі в кінці
+              сезону. Холодильник, пральна машина — все ідеально. Буду звертатись знову!"</p>
+            <div class="flex items-center gap-3">
+              <div
+                class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold text-sm"
+                data-i18n="r5.i">І</div>
+              <div>
+                <p class="text-txt font-medium text-sm" data-i18n="r5.n">Іван Мороз</p>
+                <p class="text-muted text-xs" data-i18n="r5.tp">Дачний переїзд</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Dots -->
+      <div id="rev-dots" class="flex justify-center gap-2 mt-8"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ══════════════════════════════════════════
+     ORDER FORM
+══════════════════════════════════════════ -->
+  <section id="order" class="py-24 bg-d2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+        <!-- Left info -->
+        <div>
+          <p class="text-accent text-xs font-bold uppercase tracking-[.2em] mb-3" data-i18n="sec.order">Зв'яжіться з
+            нами</p>
+          <h2 class="font-display text-txt leading-none mb-6" style="font-size:clamp(2.6rem,5vw,4.5rem)"
+            data-i18n="sec.orderTitle">ЗАЛИШИТИ<br>ЗАЯВКУ</h2>
+          <p class="text-muted leading-relaxed mb-10" data-i18n="ord.sub">Заповніть форму і наш менеджер зв'яжеться з
+            вами протягом 15 хвилин для уточнення деталей та розрахунку вартості.</p>
+
+          <div class="space-y-5">
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.32 12 19.79 19.79 0 01.23 3.4 2 2 0 012.2 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.27 9.91a16 16 0 006.82 6.82l1.07-1.07a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-txt font-medium" data-i18n="ord.i1t">Швидкий зворотній зв'язок</p>
+                <p class="text-muted text-sm" data-i18n="ord.i1d">Передзвонимо протягом 15 хвилин</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-txt font-medium" data-i18n="ord.i2t">Безкоштовний розрахунок</p>
+                <p class="text-muted text-sm" data-i18n="ord.i2d">Точна вартість без прихованих доплат</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-txt font-medium" data-i18n="ord.i3t">Зручний час</p>
+                <p class="text-muted text-sm" data-i18n="ord.i3d">Працюємо 7 днів на тиждень</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right form -->
+        <div class="bg-dark rounded-2xl border border-white/5 p-8">
+          <form id="ordForm" onsubmit="submitOrd(event)">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="block text-xs text-muted mb-2 uppercase tracking-wider" data-i18n="f.name">Ім'я</label>
+                <input type="text" class="fi w-full px-4 py-3 rounded-xl text-sm" data-i18n-ph="f.namePh"
+                  placeholder="Іван Іванов" required>
+              </div>
+              <div>
+                <label class="block text-xs text-muted mb-2 uppercase tracking-wider"
+                  data-i18n="f.phone">Телефон</label>
+                <input type="tel" class="fi w-full px-4 py-3 rounded-xl text-sm" data-i18n-ph="f.phonePh"
+                  placeholder="+38 (050) 000-00-00" required>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-xs text-muted mb-2 uppercase tracking-wider" data-i18n="f.svc">Тип
+                послуги</label>
+              <select class="fi w-full px-4 py-3 rounded-xl text-sm" id="svcSel">
+                <option value="" data-i18n="f.svcPh">Оберіть послугу</option>
+                <option value="a" data-i18n="s1.n">Квартирний переїзд</option>
+                <option value="b" data-i18n="s2.n">Офісний переїзд</option>
+                <option value="c" data-i18n="s3.n">Дачний переїзд</option>
+                <option value="d" data-i18n="s4.n">Перевезення меблів</option>
+                <option value="e" data-i18n="s5.n">Будматеріали</option>
+                <option value="f" data-i18n="s6.n">Вивіз сміття</option>
+                <option value="g" data-i18n="s7.n">Вантажники</option>
+                <option value="h" data-i18n="s8.n">Складський переїзд</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="block text-xs text-muted mb-2 uppercase tracking-wider" data-i18n="f.dt">Дата та час
+                (опціонально)</label>
+              <input type="datetime-local" class="fi w-full px-4 py-3 rounded-xl text-sm">
+            </div>
+
+            <div class="mb-6">
+              <label class="block text-xs text-muted mb-2 uppercase tracking-wider" data-i18n="f.desc">Опис вантажу /
+                переїзду</label>
+              <textarea class="fi w-full px-4 py-3 rounded-xl text-sm resize-none h-24" data-i18n-ph="f.descPh"
+                placeholder="Опишіть що потрібно перевезти, звідки і куди..."></textarea>
+            </div>
+
+            <button type="submit" id="ordBtn" class="btn-p w-full py-4 rounded-xl font-semibold"
+              data-i18n="f.submit">Відправити заявку</button>
+            <p class="text-xs text-muted text-center mt-3" data-i18n="cb.prv">Натискаючи кнопку, ви погоджуєтеся з
+              обробкою персональних даних</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <!-- ══════════════════════════════════════════
+     CONTACTS
+══════════════════════════════════════════ -->
+  <section id="contacts" class="py-24 bg-dark">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="mb-14">
+        <p class="text-accent text-xs font-bold uppercase tracking-[.2em] mb-3" data-i18n="sec.cnt">Будемо раді чути вас
+        </p>
+        <h2 class="font-display text-txt leading-none" style="font-size:clamp(2.8rem,6vw,5rem)"
+          data-i18n="sec.cntTitle">КОНТАКТИ</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Info column -->
+        <div class="space-y-4">
+
+          <div class="bg-d2 border border-white/5 rounded-2xl p-5 flex items-start gap-4">
+            <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.32 12 19.79 19.79 0 01.23 3.4 2 2 0 012.2 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.27 9.91a16 16 0 006.82 6.82l1.07-1.07a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-muted text-xs mb-2 uppercase tracking-wider" data-i18n="cnt.ph">Телефони</p>
+              <a href="tel:+380501234567" class="block text-txt hover:text-accent transition-colors font-medium">+38
+                (050) 123-45-67</a>
+              <a href="tel:+380631234567" class="block text-txt hover:text-accent transition-colors font-medium">+38
+                (063) 123-45-67</a>
+            </div>
+          </div>
+
+          <div class="bg-d2 border border-white/5 rounded-2xl p-5 flex items-start gap-4">
+            <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-muted text-xs mb-2 uppercase tracking-wider">Email</p>
+              <a href="/cdn-cgi/l/email-protection#ee87808881ae988f809a8f94869e9c81c09b8f"
+                class="text-txt hover:text-accent transition-colors font-medium"><span class="__cf_email__"
+                  data-cfemail="1d74737b725d6b7c73697c67756d6f7233687c">[email&#160;protected]</span></a>
+            </div>
+          </div>
+
+          <div class="bg-d2 border border-white/5 rounded-2xl p-5 flex items-start gap-4">
+            <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#F5601E" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-muted text-xs mb-2 uppercase tracking-wider" data-i18n="cnt.addr">Адреса</p>
+              <p class="text-txt font-medium" data-i18n="cnt.addrTxt">м. Київ, вул. Хрещатик, 1</p>
+              <p class="text-muted text-sm" data-i18n="cnt.hours">Пн–Нд: 8:00 — 22:00</p>
+            </div>
+          </div>
+
+          <!-- Socials -->
+          <div class="flex gap-2 pt-1">
+            <a href="#"
+              class="w-11 h-11 bg-d2 border border-white/5 rounded-xl flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-colors"
+              title="Telegram">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8-1.68 7.94c-.13.56-.46.7-.93.44l-2.57-1.9-1.24 1.19c-.14.13-.26.25-.52.25l.18-2.62 4.73-4.27c.2-.18-.05-.28-.32-.1l-5.85 3.69-2.52-.79c-.55-.17-.56-.55.12-.81l9.84-3.79c.45-.17.85.11.76.77z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="w-11 h-11 bg-d2 border border-white/5 rounded-xl flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-colors"
+              title="Viber">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg>
+            </a>
+            <a href="#"
+              class="w-11 h-11 bg-d2 border border-white/5 rounded-xl flex items-center justify-center text-muted hover:border-accent hover:text-accent transition-colors"
+              title="Instagram">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="lg:col-span-2 bg-d2 border border-white/5 rounded-2xl overflow-hidden" style="min-height:340px">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.6536862826!2d30.5209!3d50.4501!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce56b2e95c15%3A0x8696aace3b15b0c7!2sKhreshchatyk%20St%2C%201%2C%20Kyiv!5e0!3m2!1suk!2sua!4v1700000000000!5m2!1suk!2sua"
+            width="100%" height="100%" style="border:0;min-height:340px;" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+  <footer class="bg-d2 border-t border-white/5 py-7">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+            <rect x="1" y="3" width="15" height="13" rx="1.5" />
+            <path d="M16 8h4l3 3v5h-7V8z" />
+            <circle cx="5.5" cy="19" r="2" fill="white" />
+            <circle cx="19.5" cy="19" r="2" fill="white" />
+          </svg>
+        </div>
+        <span class="font-display text-xl text-txt tracking-wider">EASY<span class="text-accent">MOVING</span></span>
+      </div>
+      <p class="text-muted text-sm" data-i18n="ft.copy">© 2025 EasyMoving. Всі права захищено.</p>
+      <a href="#" class="text-muted text-sm hover:text-accent transition-colors" data-i18n="ft.prv">Політика
+        конфіденційності</a>
+    </div>
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script>
+    /* ─── NAVBAR ────────────────────────────────────────── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    /* ─── MOBILE MENU ───────────────────────────────────── */
+    function toggleMob() {
+      document.getElementById('mob-menu').classList.toggle('open');
+    }
+
+    /* ─── REVIEWS CAROUSEL ──────────────────────────────── */
+    let revOff = 0;
+    const CARD_W = 340;
+    const GAP = 20;
+
+    function getVisible() {
+      return window.innerWidth < 640 ? 1 : window.innerWidth < 1024 ? 2 : 3;
+    }
+
+    function buildDots() {
+      const track = document.getElementById('rev-track');
+      const total = track.children.length;
+      const vis = getVisible();
+      const count = Math.max(1, total - vis + 1);
+      const dc = document.getElementById('rev-dots');
+      dc.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const d = document.createElement('button');
+        d.className = 'w-2 h-2 rounded-full transition-all duration-300';
+        d.style.background = i === 0 ? '#F5601E' : 'rgba(255,255,255,.15)';
+        d.onclick = () => goRev(i);
+        dc.appendChild(d);
+      }
+    }
+
+    function goRev(idx) {
+      const track = document.getElementById('rev-track');
+      const total = track.children.length;
+      const vis = getVisible();
+      revOff = Math.min(idx, total - vis);
+      track.style.transform = `translateX(-${revOff * (CARD_W + GAP)}px)`;
+      document.querySelectorAll('#rev-dots button').forEach((d, i) => {
+        d.style.background = i === revOff ? '#F5601E' : 'rgba(255,255,255,.15)';
+        d.style.width = i === revOff ? '20px' : '8px';
+        d.style.borderRadius = '4px';
+      });
+    }
+
+    function nextRev() { goRev(revOff + 1); }
+    function prevRev() { goRev(Math.max(0, revOff - 1)); }
+
+    window.addEventListener('resize', () => { buildDots(); goRev(0); });
+
+    /* ─── FORMS ─────────────────────────────────────────── */
+    function submitCB(e) {
+      e.preventDefault();
+      const btn = document.getElementById('cbBtn');
+      btn.textContent = '✓ Відправлено!';
+      btn.classList.add('btn-success');
+      setTimeout(() => {
+        btn.textContent = 'Замовити дзвінок';
+        btn.classList.remove('btn-success');
+        e.target.reset();
+      }, 3000);
+    }
+
+    function submitOrd(e) {
+      e.preventDefault();
+      const btn = document.getElementById('ordBtn');
+      btn.textContent = '✓ Заявку відправлено!';
+      btn.classList.add('btn-success');
+      setTimeout(() => {
+        btn.textContent = 'Відправити заявку';
+        btn.classList.remove('btn-success');
+        e.target.reset();
+      }, 3000);
+    }
+  </script>
+</body>
+
+</html>
